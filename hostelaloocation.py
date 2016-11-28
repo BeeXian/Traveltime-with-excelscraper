@@ -5,17 +5,18 @@ import simplejson, urllib.request, openpyxl
 
 
 def getTravelTimes():
-
+	# 1480321800
 	x = scrapeExcelSheet()
 	i = 0
 	for i in range(len(x)):
 		orig_coord = ["Singapore," + x[i]]
 		dest_coord = ["Singapore,8,somapah,road"]
-		url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={0}&destinations={1}&mode=transit&transit_mode=train&key=AIzaSyAohbwRhNZ0UkgbnulEfip9cZYDlqMJBQM".format(str(orig_coord),str(dest_coord))
+		url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={0}&destinations={1}&mode=transit&transit_mode=train&arrival_time=1480321800&key=AIzaSyAohbwRhNZ0UkgbnulEfip9cZYDlqMJBQM".format(str(orig_coord),str(dest_coord))
 		result= simplejson.load(urllib.request.urlopen(url))
+		# print(result)
 		try:
 			transit_time = result['rows'][0]['elements'][0]['duration']['text']
-		# print(result)
+			# print(result)
 		except KeyError as e:
 			print("invalid address: " + str(x[i]))
 			continue
@@ -53,19 +54,18 @@ def scrapeExcelSheet():
 			break
 
 
-
-
-	while (holder == True):
+	# while (holder == True):
 		
-		try:
-			columnNumber = int(input("Enter column number: "))
-			sheet.cell(row=1, column = columnNumber).value
-		except ValueError as e:
-			print(e)
-			continue
-		else:
-			break
+	# 	try:
+	# 		columnNumber = int(input("Enter column number: "))
+	# 		sheet.cell(row=1, column = columnNumber).value
+	# 	except ValueError as e:
+	# 		print(e)
+	# 		continue
+	# 	else:
+	# 		break
 
+	columnNumber = 3
 
 	while (holder == True):
 		
